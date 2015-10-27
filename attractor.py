@@ -11,8 +11,8 @@ class Attractor():
     def __init__(self, s=10.0, p=28.0,  b=8.0/3.0): # This is the data for the class - 
         
         self.start = 0.0 # The start & end range of time component
-        self.end = 1000.0
-        self.points = 10000 # The number of increments between the point range
+        self.end = 80.0
+        self.points = 100 # The number of increments between the point range
         self.s = s
         self.p = p
         self.b = b
@@ -30,17 +30,17 @@ class Attractor():
         The defination of function fx  dx/dt = s[y(t) - x(t)] 
         
         """
-        return self.dt*self.s*(y - x)
+        return self.s*(y - x)
 
     def fy(self,x,y,z):
-        return self.dt*((x*(self.p-z))-y)
+        return ((x*(self.p-z))-y)
     
     def fz(self,x,y,z):
         """ 
         The defination of function fy  dy/dt = x(t)[p-z(t)] - y(t)
 
         """
-        return self.dt*((x*y - self.b*z))
+        return ((x*y - self.b*z))
   
     
     def euler(self, initial_values):
@@ -56,9 +56,9 @@ class Attractor():
         x[0], y[0], z[0]  = initial_values[0], initial_values[1], initial_values[2]  #   initial_values = self.paramset
     
         for i in xrange( self.points ):  # Calaculate value of the x, y and z function for a increment of dt
-            x[i+1] = x[i] + self.fx(x[i],y[i])
-            y[i+1] = y[i] + self.fy(x[i],y[i],z[i])
-            z[i+1] = z[i] + self.fz(x[i],y[i],z[i])
+            x[i+1] = x[i] + self.dt*self.fx(x[i],y[i])
+            y[i+1] = y[i] + self.dt*self.fy(x[i],y[i],z[i])
+            z[i+1] = z[i] + self.dt*self.fz(x[i],y[i],z[i])
 
         return x,y, z
     
