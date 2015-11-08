@@ -8,3 +8,5 @@ test_attractor.py : The is the file with sample tests to validate the attacctor 
 ExploreAttactor.ipynb : This is a Julia file that is used to demonstrate the use of the attactor class.
 
 data.csv : This is a data file is generated as part of the executing the attactor class, save method.
+
+learnjulia.ipynb : This is a julia file demonstrating some commands and basic introcution to Julia.
