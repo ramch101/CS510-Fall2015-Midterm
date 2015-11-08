@@ -14,7 +14,9 @@ class TestEuler(unittest.TestCase):
     """This is set of basic test for Euler method"""
     def setUp(self):
         self.a = Attractor()
-
+        self.a.points=10000
+        self.a.start=0
+        self.a.end=100        
 
     def test_dataframe(self):
         """Make sure the data frame is created with right number of rows"""
@@ -33,6 +35,9 @@ class Runga_Kutta(unittest.TestCase):
     """This is set of basic test for Euler method"""
     def setUp(self):
         self.a = Attractor()
+        self.a.points=10000
+        self.a.start=0
+        self.a.end=100 
 
     def test_dataframe(self):
         """Make sure the data frame is created with right number of rows"""

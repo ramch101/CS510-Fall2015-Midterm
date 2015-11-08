@@ -12,7 +12,7 @@ class Attractor():
         
         self.start = 0.0 # The start & end range of time component
         self.end = 80.0
-        self.points = 100 # The number of increments between the point range
+        self.points = 10000 # The number of increments between the point range
         self.s = s
         self.p = p
         self.b = b
@@ -80,18 +80,17 @@ class Attractor():
         for i in xrange( self.points ):
             xk1 = self.fx( x[i],y[i])
             xk2 = self.fx(x[i]+xk1*(self.dt/2) ,y[i])
-            x[i+1] = x[i] + ( xk1 + xk2 ) / 2.0
+            x[i+1] = x[i] + self.dt*( xk1 + xk2 )/2
             
             yk1 = self.fy(x[i],y[i],z[i])
             yk2 = self.fy(x[i],y[i]+yk1*(self.dt/2),z[i])
-            y[i+1] = y[i] + ( yk1 + yk2 ) / 2.0
+            y[i+1] = y[i] + self.dt*( yk1 + yk2 )/2
             
             zk1 = self.fz(x[i],y[i],z[i])
             zk2 = self.fz(x[i],y[i],z[i]+zk1*(self.dt/2))
-            z[i+1] = z[i] + ( zk1 + zk2 ) / 2.0
+            z[i+1] = z[i] + self.dt*( zk1 + zk2 )/2
     
         return x,y,z   
-   
 
 
 
@@ -150,8 +149,8 @@ class Attractor():
             self.xpoints,self.ypoints,self.zpoints = self.rk4([x0,y0,z0])
         
         df1 = self.pd.DataFrame(self.xpoints) # collect the numpy array output and convert to a data frame for the purpose of saving to a file
-        df2 = self.pd.DataFrame(self.xpoints)
-        df3 = self.pd.DataFrame(self.xpoints)
+        df2 = self.pd.DataFrame(self.ypoints)
+        df3 = self.pd.DataFrame(self.zpoints)
         df0 = self.pd.DataFrame(self.np.linspace( self.start, self.end, self.points+1 )) # get the time component added to the data frame
         self.solution = self.pd.concat([df0, df1, df2, df3], axis=1, keys=['t','x','y', 'z']) # concat the arrays to data frames and add the column headers
         
