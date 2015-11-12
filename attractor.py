@@ -52,6 +52,7 @@ class Attractor():
         x = self.np.zeros(self.points+1)
         y = self.np.zeros(self.points+1)
         z = self.np.zeros(self.points+1) # Initialize the numpy arrays
+        
 
         x[0], y[0], z[0]  = initial_values[0], initial_values[1], initial_values[2]  #   initial_values = self.paramset
     
@@ -129,7 +130,7 @@ class Attractor():
         return x,y,z   
     
              
-    def evolve(self,r0=[10.0,15.0,20.0],order=4) :
+    def evolve(self,r0=[10.0,28.0,8.0/3.0],order=4) :
         """ 
         The Evolve method is a wrapper function to initialize the parameters and call the appropriate method
         to solve the deifferential equation using the order parameter
@@ -140,6 +141,9 @@ class Attractor():
         x0 = r0[0] # Initialize the parameters
         y0 = r0[1]
         z0 = r0[2]
+        
+         #   Set the correct value of time interval
+        self.dt = (self.end - self.start)/self.points
         
         if order == 1 : # call apprpriate method based on the order parameter
             self.xpoints,self.ypoints,self.zpoints = self.euler([x0,y0,z0])
@@ -167,11 +171,15 @@ class Attractor():
         return(True) # the True status is returned from this methos to validate if the program was able to save the file sucessfully
     
         """ 
-        The plot methods are used to plot the graphs of various equations 
+        The plot methods are used to plot the graphs of various equations, we should call the evolve method before calling the plot methods 
 
         """
         
     def plotx(self) :
+        """ 
+        The plot is used to to print the x values against the time axes
+
+        """
         fig = self.plt.figure()
         ax = fig.gca()
         ax.plot(self.solution.t, self.solution.x)
@@ -181,6 +189,10 @@ class Attractor():
         self.plt.show() 
     
     def ploty(self) :
+        """ 
+        The plot is used to to print the y values against the time axes
+
+        """
         fig = self.plt.figure()
         ax = fig.gca()
         ax.plot(self.solution.t, self.solution.y)
@@ -190,6 +202,10 @@ class Attractor():
         self.plt.show() 
  
     def plotz(self) :
+        """ 
+        The plot is used to to print the z values against the time axes
+
+        """
         fig = self.plt.figure()
         ax = fig.gca()
         ax.plot(self.solution.t, self.solution.z)
@@ -199,6 +215,10 @@ class Attractor():
         self.plt.show()  
 
     def plotxy(self) :
+        """ 
+        The plot is used to to print the x values against the y values of of the equation
+
+        """
         fig = self.plt.figure()
         ax = fig.gca()
         ax.plot(self.solution.x, self.solution.y)
@@ -208,6 +228,10 @@ class Attractor():
         self.plt.show()       
         
     def plotyz(self) :
+        """ 
+        The plot is used to to print the y values against the z values of of the equation
+
+        """
         fig = self.plt.figure()
         ax = fig.gca()
         ax.plot(self.solution.y, self.solution.z)
@@ -217,6 +241,10 @@ class Attractor():
         self.plt.show()        
     
     def plotzx(self) :
+        """ 
+        The plot is used to to print the z values against the x values of of the equation
+
+        """
         fig = self.plt.figure()
         ax = fig.gca()
         ax.plot(self.solution.z, self.solution.x)
@@ -226,6 +254,10 @@ class Attractor():
         self.plt.show()      
    
     def plot3d(self) :
+        """ 
+        The plot is used to to print a 3d plot of the x,y and z values of the equation
+
+        """
         fig = self.plt.figure()
         ax = fig.gca(projection='3d')
         ax.plot(self.xpoints, self.ypoints, self.zpoints) # in this example we pass numpy arrays vs panda data frame, another way to plot the graphs
